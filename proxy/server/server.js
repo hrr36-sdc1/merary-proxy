@@ -1,3 +1,4 @@
+// const newrelic = require('newrelic');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
@@ -32,6 +33,13 @@ app.use('/shoes',
 );
 
 app.use('/shoes/:shoeId',
+  proxy({
+    target: "http://127.0.0.1:8001",
+    changeOrigin: true
+  })
+);
+
+app.use('/postshoes/10000001',
   proxy({
     target: "http://127.0.0.1:8001",
     changeOrigin: true
